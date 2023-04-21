@@ -22,7 +22,7 @@ export const Login = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
-          placeholder="email"
+          placeholder="Email"
           id="email"
           name="email"
         />

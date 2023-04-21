@@ -20,7 +20,7 @@ export const Register = (props) => {
           name="name"
           onChange={(e) => setName(e.target.value)}
           id="name"
-          placeholder="name"
+          placeholder="Name"
         />
         <input
           value={indexNr}
@@ -34,7 +34,7 @@ export const Register = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
-          placeholder="email"
+          placeholder="Email"
           id="email"
           name="email"
         />
