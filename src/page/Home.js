@@ -93,7 +93,7 @@ const [isLoggedIn] = useState(true);
               <th>Description</th>
               <th>Creation Time</th>
               <th>Defense Date</th>
-              <th>Action</th>
+              <th class="action">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -105,11 +105,12 @@ const [isLoggedIn] = useState(true);
               <td>{project.description}</td>
               <td>{project.creationTime}</td>
               <td>{project.defenseDate}</td>
-              <td>
+              <td class="action">
                 <button class="table-button">Show</button>
                 <button class="table-button">Edit</button>
                 <button class="table-button delete">Delete</button>
-              </td>
+            </td>
+
             </tr>
           ))}
           </tbody>
@@ -120,7 +121,7 @@ const [isLoggedIn] = useState(true);
             <button>Next Page</button>
           </div>
           <div class="text-dropdown">
-            <span>Items per page:</span>
+            <span>Items per page: </span>
             <select onChange={handleItemsPerPageChange}>
               <option>5</option>
               <option>10</option>

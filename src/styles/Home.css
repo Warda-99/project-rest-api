@@ -1,187 +1,233 @@
+/* General */
+body {
+  background-color: #333;
+  color: #ddd;
+}
+
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin: 1.5rem;
-    text-align: center;
-  }
-  
-  button {
-    background-color: #00CCBB;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #00a194;
-  }
-  
-  .search-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
-  }
-  
-  th, td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ccc;
-    white-space: nowrap;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .pagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  select {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .SearchBlok {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
-  
-  .inputplaceholder {
-    border-radius: 10px 0 0 10px;
-    outline: none;
-    margin: 0;
-    width: 20rem;
-  }
-  
-  .go {
-    border-radius: 0 10px 10px 0;
-    height: 2rem;
-    border: 1px solid #007bff;
-  }
-  
-  .SearchBlok input[type="text"], .SearchBlok button {
-    height: 2.5rem;
-    box-sizing: border-box;
-    font-size: 14px;
-    vertical-align: middle;
-  }
-  
-  .AddProject {
-    text-decoration: none;
-    display: block;
-    font-size: 14px;
-    margin: 0.5rem auto;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: transform 0.3s ease-in-out;
-  }
-  .AddProject:hover{
-    transform: scale(1.05);
-  }
-  .AddProject:active{
-    transform: scale(1) translateY(4px);
-  }
-  .pagesettings{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    margin-top: 1.5rem;
-  }
-  .navigation-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .navigation-buttons button {
-    width: 150px;
-    height: 50px;
-    margin-left: 4px;
-    margin-right: 20px;
-  }
-  .text-dropdown {
-    display: flex;
-    align-items: center;
-    margin-right: 10%;
-  }
-  .table-button {
-    margin: 0 4px;
-  }
-  
-  .table-button.delete:hover {
-    background-color: red;
-  }
-  .message {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    background-color: #f5f5f5;
-    text-align: center;
-  }
-  
-  .message h2 {
-    margin: 0 0 10px 0;
-    font-size: 24px;
-  }
-  
-  .message p {
-    margin: 0 0 20px 0;
-    font-size: 18px;
-  }
-  
-  .message a {
-    display: inline-block;
-    padding: 10px;
-    border: 2px solid #00CCBB;
-    border-radius: 5px;
-    background-color: #00CCBB;
-    color: #fff;
-    font-size: 16px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .message a:hover {
-    background-color: #fff;
-    color: #00a194;
-  }
-  
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Typography */
+h1 {
+  font-size: 24px;
+  margin: 1.5rem;
+  text-align: center;
+}
+
+/* Buttons */
+button {
+  background-color: #00CCBB;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+button:hover {
+  background-color: #00a194;
+}
+
+.table-button.delete:hover {
+  background-color: red;
+}
+
+.table-button {
+  position: relative;
+  z-index: 1;
+  margin: 0 4px 0 0;
+}
+
+.table-button:last-child {
+  margin-right: 0;
+}
+
+.navigation-buttons button {
+  width: 150px;
+  height: 50px;
+  margin-left: 4px;
+  margin-right: 20px;
+}
+
+/* Search */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.SearchBlok {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.SearchBlok input[type="text"], .SearchBlok button {
+  height: 2.5rem;
+  box-sizing: border-box;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.inputplaceholder {
+  border-radius: 10px 0 0 10px;
+  outline: none;
+  margin: 0;
+  width: 20rem;
+}
+
+.go {
+  border-radius: 0 10px 10px 0;
+  height: 2rem;
+}
+
+/* Table */
+table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  background-color: #555;
+  color: #ddd;
+}
+
+th {
+  background-color: #444;
+}
+
+th.action {
+  width: 200px;
+}
+
+td.action {
+  width: 200px;
+}
+
+tr:nth-child(even) {
+  background-color: #444;
+}
+
+tr:nth-child(odd) {
+  background-color: #555;
+}
+
+tbody tr:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagesettings {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.text-dropdown {
+  display: flex;
+  align-items: center;
+  margin-right: 10%;
+}
+
+select {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* AddProject Link */
+.AddProject {
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  margin: 0.5rem auto;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.AddProject:hover {
+  transform: scale(1.05);
+}
+
+.AddProject:active {
+  transform: scale(1) translateY(4px);
+}
+
+/* Message */
+.message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.message h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.message p {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+}
+
+.message a {
+  display: inline-block;
+  padding: 10px;
+  border: 2px solid #00CCBB;
+  border-radius: 5px;
+  background-color: #00CCBB;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.message a:hover {
+  background-color: #fff;
+  color: #00a194;
+}
