@@ -17,7 +17,7 @@ export const Login = (props) => {
 
     const user = { email, pass }
 		axios
-			.post('http://46.239.134.230:8080/api/login', user)
+			.post('https://project-rest-api-production.up.railway.app/api/login', user)
 			.then((res) => {
 				// localStorage.setItem('token', res.data.accessToken)
 				// var value = res.headers['set-cookie']
