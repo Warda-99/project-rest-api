@@ -9,6 +9,7 @@ import { Edit } from "./page/Edit";
 import { Account } from "./page/Account";
 import { Show } from "./page/Show";
 
+
 const Route = () => {
   let routes = useRoutes([
     { path: "/", element: <Auth /> },
@@ -17,6 +18,7 @@ const Route = () => {
     { path: "/projectData", element: <projectData /> },
     { path: "/account", element: <Account /> },
     { path: "/show/:id", element: <Show /> },
+    
   ]);
   return routes;
 };

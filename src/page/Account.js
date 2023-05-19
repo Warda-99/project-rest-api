@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TopBar from './TopBar';
 import '../styles/Account.css';
+import Background from './Background';
 
 export const Account = () => {
   const [username, setUsername] = useState('');
@@ -13,6 +14,7 @@ export const Account = () => {
 
   return (
     <>
+      <div><Background /></div>
       <TopBar/>
       <div className="account-page">
         <h2>My Account</h2>

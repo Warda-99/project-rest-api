@@ -7,7 +7,7 @@
   
   .show-page h2 {
     text-align: center;
-    color: #333;
+    color: #ddd;
     margin-bottom: 20px;
   }
   
@@ -20,7 +20,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
-    color: #333;
+    color: #ddd
   }
   
   .show-page table tr:first-child td {
@@ -30,4 +30,3 @@
   .show-page table tr td:first-child {
     width: 150px;
   }
-  
