@@ -1,0 +1,83 @@
+/* General */
+.edit-page body {
+    background-color: #333;
+    color: #ddd;
+}
+
+.Edit {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Typography */
+.edit-page h2 {
+    font-size: 24px;
+    margin: 1.5rem;
+    text-align: center;
+}
+
+/* Buttons */
+.edit-page button {
+    background-color: #00CCBB;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 0;
+    margin-top: 1rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 24px;
+}
+
+.edit-page button:hover {
+    background-color: #00a194;
+}
+
+/* Form elements */
+.edit-page table {
+    width: 50%;
+    color: #ddd;
+}
+
+.edit-page td {
+    padding: 0.5rem;
+}
+
+.edit-page input[type="text"], 
+.edit-page input[type="datetime-local"], 
+.edit-page textarea {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box; /* New */
+}
+
+.edit-page input[type="text"]:focus, 
+.edit-page input[type="datetime-local"]:focus, 
+.edit-page textarea:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.edit-page div {
+    margin-bottom: 1rem;
+}
