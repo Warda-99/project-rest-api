@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import TopBar from './TopBar';
 import projects from './projectData';
 import '../styles/Home.css';
-import Background from './Background';
 
 export const Home = () => {
 
@@ -70,7 +69,6 @@ const [isLoggedIn] = useState(true);
 
   return (
     <div class = 'home-page'>
-      <div><Background /></div>
       <TopBar/>
 
       {isLoggedIn ? (

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/TopBar.css';
+import Background from './Background';
+import '../styles/Background.css'
 
 const TopBar = () => {
 
@@ -8,6 +10,7 @@ const TopBar = () => {
 
   return (
     <div class="top-bar">
+        <div><Background /></div>
         <a href="/home">Home</a>
         {isLoggedIn ? (
         // isLoggedIn

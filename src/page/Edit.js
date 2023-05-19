@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import TopBar from './TopBar';
 import projects from './projectData';
 import '../styles/Edit.css';
-import Background from './Background'
 
 export const Edit = () => {
   const { id } = useParams();
@@ -52,7 +51,6 @@ setCreationTime(updatedProject.creationTime);
 
 return (
 <>
-    <div><Background /></div>
     <div><TopBar /></div>
     <div className="edit-page">
     <h2>{project && project.name !== '' ? 'Edit Project' : 'Create Project'}</h2>

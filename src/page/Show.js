@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import TopBar from './TopBar';
 import projects from './projectData';
 import '../styles/Show.css';
-import '../styles/Background.css'
-import Background from './Background';
 
 export const Show = () => {
   const { id } = useParams();
@@ -19,7 +17,7 @@ export const Show = () => {
 
   return (
     <>
-    <div><Background /></div>
+
       <div><TopBar /></div>
       <div className="show-page">
         <h2>{project && project.name !== '' ? 'Show Project' : 'Project Not Found'}</h2>
