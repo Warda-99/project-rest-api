@@ -1,77 +1,74 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import TopBar from './TopBar';
+import projects from './projectData';
 import '../styles/Home.css';
 
 export const Home = () => {
-//info for test table
-  const projects = [
-    {
-      no: 1,
-      id: 101,
-      name: 'Project A',
-      description: 'Project A description',
-      creationTime: '2023-04-10 14:30',
-      defenseDate: '2023-06-20',
-    },
-    {
-      no: 2,
-      id: 102,
-      name: 'Project B',
-      description: 'Project B description',
-      creationTime: '2023-04-15 11:15',
-      defenseDate: '2023-06-25',
-    },
-    {
-      no: 3,
-      id: 103,
-      name: 'Project C',
-      description: 'Project C description',
-      creationTime: '2023-04-30 15:45',
-      defenseDate: '2023-06-30',
-    },
-    {
-      no: 4,
-      id: 104,
-      name: 'Project D',
-      description: 'Project D description',
-      creationTime: '2023-04-10 10:25',
-      defenseDate: '2023-06-30',
-    },
-    {
-      no: 5,
-      id: 105,
-      name: 'Project E',
-      description: 'Project E description',
-      creationTime: '2023-04-40 18:45',
-      defenseDate: '2023-06-30',
-    },
-    {
-      no: 6,
-      id: 106,
-      name: 'Project F',
-      description: 'Project F description a lot fot text',
-      creationTime: '2023-04-20 15:15',
-      defenseDate: '2023-06-30',
-    },
-    
-  ];
+
 const [itemsPerPage, setItemsPerPage] = useState(5);
 const [currentPage, setCurrentPage] = useState(0);
-const displayedProjects = projects.slice(
+const [searchQuery, setSearchQuery] = useState("");
+const [activeSearchQuery, setActiveSearchQuery] = useState("");
+const [projectList, setProjectList] = useState(projects);
+const history = useNavigate();
+
+const handleDeleteProject = (projectId) => {
+  setProjectList(projectList.filter(project => project.id !== projectId));
+};
+const handleAddProject = () => {
+  const newProject = {
+    id: projects.length > 0 ? Math.max(...projects.map(p => p.id)) + 1 : 1,
+    name: '',
+    description: '',
+    creationTime: ''
+  };
+  projects.push(newProject);
+  history(`/edit/${newProject.id}`);
+};
+const displayedProjects = projects
+.filter(project => project.name.toLowerCase().includes(activeSearchQuery.toLowerCase()))
+.slice(
   currentPage * itemsPerPage,
   currentPage * itemsPerPage + itemsPerPage
 );
-const handleItemsPerPageChange = (event) => {
-  setItemsPerPage(parseInt(event.target.value, 10));
-  setCurrentPage(0);
+const handleSearchQueryChange = (event) => {
+  setSearchQuery(event.target.value);
 };
-//end info  
+const handleSearch = () => {
+  setActiveSearchQuery(searchQuery);
+};
+const handleItemsPerPageChange = (event) => {
+  const newItemsPerPage = parseInt(event.target.value, 10);
+  const newMaxPage = Math.ceil(projects.length / newItemsPerPage) - 1;
+  const newCurrentPage = Math.min(currentPage, newMaxPage);
+  setItemsPerPage(newItemsPerPage);
+  setCurrentPage(newCurrentPage);
+};
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+    handleSearch();
+  }
+};
+ 
+const handlePreviousPage = () => {
+  if (currentPage > 0) {    
+    setCurrentPage(currentPage - 1);    
+  }
+};
+
+const handleNextPage = () => {
+  const maxPage = Math.ceil(projects.length / itemsPerPage) - 1;
+  if (currentPage < maxPage) {
+    setCurrentPage(currentPage + 1);
+  }
+};
 
 // Authorization session switch (true/false)
 const [isLoggedIn] = useState(true);
 
   return (
-    <div>
+    <div class = 'home-page'>
       <TopBar/>
 
       {isLoggedIn ? (
@@ -79,10 +76,10 @@ const [isLoggedIn] = useState(true);
         <>
         <div>
         <div class="SearchBlok">
-          <input type="text" class="inputplaceholder" placeholder="Search" />
-          <button class="go">Search</button>
+          <input type="text" class="inputplaceholder" placeholder="Search" value={searchQuery} onChange={handleSearchQueryChange} onKeyDown={handleKeyDown}/>
+          <button class="go" onClick={handleSearch}>Search</button>
         </div>
-        <button class="AddProject">Add Project</button>
+        <button class="AddProject" onClick={handleAddProject}>Add Project</button>
         <h1>Project List</h1>
         <table>
           <thead>
@@ -97,18 +94,18 @@ const [isLoggedIn] = useState(true);
             </tr>
           </thead>
           <tbody>
-            {displayedProjects.map((project) => (
+            {displayedProjects.map((project, index) => (
             <tr key={project.id}>
-              <td>{project.no}</td>
+              <td>{currentPage * itemsPerPage + index + 1}</td>
               <td>{project.id}</td>
-              <td>{project.name}</td>
-              <td>{project.description}</td>
+              <td>{project.name.length > 10 ? project.name.substring(0, 10) + '...' : project.name}</td>
+              <td>{project.description.length > 10 ? project.description.substring(0, 10) + '...' : project.description}</td>
               <td>{project.creationTime}</td>
               <td>{project.defenseDate}</td>
               <td class="action">
-                <button class="table-button">Show</button>
-                <button class="table-button">Edit</button>
-                <button class="table-button delete">Delete</button>
+                <Link class="table-button" to={`/show/${project.id}`}><button class="table-button">Show</button></Link>
+                <Link class="table-button" to={`/edit/${project.id}`}><button class="table-button">Edit</button></Link>
+                <button class="table-button delete" onClick={() => handleDeleteProject(project.id)}>Delete</button>
             </td>
 
             </tr>
@@ -117,8 +114,16 @@ const [isLoggedIn] = useState(true);
         </table>
         <div class="pagesettings">
           <div class="navigation-buttons">
-            <button>Previous Page</button>
-            <button>Next Page</button>
+            {currentPage !== 0 && (
+              <button onClick={handlePreviousPage}>
+                Previous Page
+              </button>
+            )}
+            {currentPage !== Math.ceil(projects.length / itemsPerPage) - 1 && (
+              <button onClick={handleNextPage}>
+                Next Page
+              </button>
+            )}
           </div>
           <div class="text-dropdown">
             <span>Items per page: </span>

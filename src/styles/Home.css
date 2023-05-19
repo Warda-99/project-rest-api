@@ -47,7 +47,14 @@ button:hover {
 .table-button:last-child {
   margin-right: 0;
 }
+.table-button a {
+  color: white;
+  text-decoration: none;
+}
 
+.table-button a:hover {
+  text-decoration: none;
+}
 .navigation-buttons button {
   width: 150px;
   height: 50px;
@@ -125,7 +132,11 @@ tr:nth-child(odd) {
   background-color: #555;
 }
 
-tbody tr:hover {
+.home-page{
+  margin-bottom: 20px;
+}
+
+.home-page tbody tr:hover {
   transform: translateY(-4px);
   transition: transform 0.3s ease;
   cursor: pointer;

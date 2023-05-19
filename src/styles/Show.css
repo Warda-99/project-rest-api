@@ -1,0 +1,33 @@
+.show-page {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .show-page h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .show-page table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .show-page table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .show-page table tr:first-child td {
+    font-weight: bold;
+  }
+  
+  .show-page table tr td:first-child {
+    width: 150px;
+  }
+  
