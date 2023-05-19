@@ -3,44 +3,30 @@ import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const Login = (props) => {
+  const [errMsg, setErrMsg] = useState("")
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPass] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    //http://46.239.134.230:8080/api/test
     e.preventDefault();
-    //console.log(email);
 
-    //navigate('/home', { replace: true })
-
-    const user = { email, pass }
+    const user = { email, password }
 		axios
 			.post('https://project-rest-api-production.up.railway.app/api/login', user)
 			.then((res) => {
-				// localStorage.setItem('token', res.data.accessToken)
-				// var value = res.headers['set-cookie']
+				localStorage.setItem('token', res.data.accessToken)
+				var value = res.headers['set-cookie']
 				// console.log(value)
 				// console.log(res.data)
-				// setUser('')
-				// setpassword('')
-				// setSuccess(true)
-				// localStorage.setItem('user', JSON.stringify(res.data))
-        console.log(res)
+				localStorage.setItem('user', JSON.stringify(res.data))
+
+        navigate('/home', { replace: true })
 			})
 			.catch((err) => {
-				// if (err.response) {
-				// 	setErrMsg(`${err.response.data.error}`)
-				// } else if (err.response.status === 400) {
-				// 	setErrMsg(`${err.response.data.error}`)
-				// } else if (err.response.status === 401) {
-				// 	setErrMsg(`${err.response.data.error}`)
-				// } else {
-				// 	setErrMsg(`${err.response.data.error}`)
-				// }
-				// errRef.current.focus()
-				console.log(err)
+				setErrMsg(err)
+				console.log(errMsg)
 			})
   };
 
@@ -57,7 +43,7 @@ export const Login = (props) => {
           name="email"
         />
         <input
-          value={pass}
+          value={password}
           onChange={(e) => setPass(e.target.value)}
           type="password"
           placeholder="********"
