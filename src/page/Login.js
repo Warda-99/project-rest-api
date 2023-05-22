@@ -19,7 +19,7 @@ export const Login = (props) => {
 				localStorage.setItem('token', res.data.accessToken)
 				var value = res.headers['set-cookie']
 				// console.log(value)
-				// console.log(res.data)
+				console.log(res.data)
 				localStorage.setItem('user', JSON.stringify(res.data))
 
         navigate('/home', { replace: true })

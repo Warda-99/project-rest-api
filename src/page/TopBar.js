@@ -22,7 +22,7 @@ const TopBar = () => {
         </div>
             <div className="dropdown-content">
                 <a href="/account">My Account</a>
-                <a href="#">Logout</a>
+                <a href="/logout">Logout</a>
             </div>
           </div>
         </>
