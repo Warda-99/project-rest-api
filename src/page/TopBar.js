@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import '../styles/TopBar.css';
+import Background from './Background';
 
 const TopBar = () => {
 
      // Authorization session switch (true/false)
   const [isLoggedIn] = useState(true);
   
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-	const logoutUser = () => {
-		localStorage.removeItem("user")
-		navigate('/')
-		window.location.reload();
-	}
+	// const logoutUser = () => {
+	// 	localStorage.removeItem("user")
+	// 	navigate('/')
+	// 	window.location.reload();
+	// }
 
   return (
     <div class="top-bar">

@@ -9,7 +9,6 @@ import { Home } from "./page/Home";
 import { Edit } from "./page/Edit";
 import { Account } from "./page/Account";
 import { Show } from "./page/Show";
-import { LogOut } from "./page/LogOut";
 
 
 const Route = () => {
