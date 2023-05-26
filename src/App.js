@@ -4,6 +4,7 @@ import {
   useRoutes,
 } from "react-router-dom";
 import { Auth } from "./page/Auth";
+import { LogOut } from "./page/LogOut";
 import { Home } from "./page/Home";
 import { Edit } from "./page/Edit";
 import { Account } from "./page/Account";
@@ -14,6 +15,7 @@ import { LogOut } from "./page/LogOut";
 const Route = () => {
   let routes = useRoutes([
     { path: "/", element: <Auth /> },
+    { path: "/logout", element: <LogOut /> },
     { path: "/home", element: <Home /> },
     { path: "/logout", element: <LogOut /> },
     { path: "/edit/:id", element: <Edit /> },
