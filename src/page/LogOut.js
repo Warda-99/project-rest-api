@@ -11,6 +11,7 @@ export const LogOut = (props) => {
 
     const wyloguj = () => {
         localStorage.removeItem("user")
+        localStorage.removeItem("token")
         navigate('/')
         window.location.reload();
     }

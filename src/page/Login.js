@@ -21,6 +21,7 @@ export const Login = (props) => {
 				// console.log(value)
 				console.log(res.data)
 				localStorage.setItem('user', JSON.stringify(res.data))
+        localStorage.setItem('token', JSON.stringify(res.data.token))
 
         navigate('/home', { replace: true })
 			})
