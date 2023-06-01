@@ -33,25 +33,21 @@ export const Home = () => {
       .catch((err) => console.error("error: " + err));
   };
 
-  const fetchData2 = () => {
-
-    console.log(Token)
-
-    axios({
-      url: "https://project-rest-api-production.up.railway.app/createdProjects",
-      method: "get",
-      headers: { 
-        "Content-type": "application/json",
-        Authorization: `Bearer ${Token}` 
-      }
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const fetchData2 = async () => {
+		axios({
+			url: 'https://project-rest-api-production.up.railway.app/createdProjects',
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${Token}`,
+			},
+		})
+			.then((res) => {
+				console.log(res.data)
+			})
+			.catch((err) => console.log(err))
+	}
 
   // useEffect(() => {
   //   fetchData2();
