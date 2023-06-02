@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#top-bar {
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.chat-page {
+    margin: 20px;
+}
+
+.chat-container {
+    position: relative; /* Додаємо позиціонування relative для абсолютного позиціонування */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    height: 400px;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.chat-messages {
+    margin-bottom: 20px;
+}
+
+.chat-input {
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 0;
+    padding-top: 2%;
+}
+
+.chat-input button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+    padding-top: 2%;
+}
+.chat-input button span {
+    display: inline-block;
+}
+h2 {
+    text-align: center;
+}

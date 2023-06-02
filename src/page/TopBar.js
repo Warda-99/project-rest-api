@@ -23,6 +23,7 @@ const TopBar = () => {
         // isLoggedIn
         <>
         <a href="/home">My Projects</a>
+        <a href="/chat">Chat</a>
         <div className="dropdown">
         <div class="profile-icon">
             <img src={process.env.PUBLIC_URL + '/pbs.png'} alt="Profile Image"/>

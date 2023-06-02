@@ -9,6 +9,7 @@ import { Home } from "./page/Home";
 import { Edit } from "./page/Edit";
 import { Account } from "./page/Account";
 import { Show } from "./page/Show";
+import { Chat } from "./page/Chat";
 
 
 const Route = () => {
@@ -21,7 +22,7 @@ const Route = () => {
     { path: "/projectData", element: <projectData /> },
     { path: "/account", element: <Account /> },
     { path: "/show/:id", element: <Show /> },
-    
+    { path: "/chat", element: <Chat /> },    
   ]);
   return routes;
 };
