@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
-import projects from "./projectData";
+// import projects from "./projectData";
 import axios from "axios";
 import "../styles/Home.css";
 
@@ -10,30 +10,15 @@ export const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeSearchQuery, setActiveSearchQuery] = useState("");
-  const [projectList, setProjectList] = useState(projects);
   const history = useNavigate();
 
   const Token = localStorage.getItem("token");
-  const [carData, setCarData] = useState([]);
+  const [projects, setProjectData] = useState([]);
+  
+  const [projectList, setProjectList] = useState(projects);
 
-  const fetchData = () => {
-    axios({
-      url: "https://project-rest-api-production.up.railway.app/createdProjects",
-      method: "get",
-      timeout: 8000,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${Token}`,
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.error("error: " + err));
-  };
+  const fetchData = async () => {
 
-  const fetchData2 = async () => {
 		axios({
 			url: 'https://project-rest-api-production.up.railway.app/createdProjects',
 			method: 'get',
@@ -44,14 +29,14 @@ export const Home = () => {
 			},
 		})
 			.then((res) => {
-				console.log(res.data)
+				setProjectData(res.data)
 			})
 			.catch((err) => console.log(err))
 	}
 
-  // useEffect(() => {
-  //   fetchData2();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDeleteProject = (projectId) => {
     setProjectList(projectList.filter((project) => project.id !== projectId));
@@ -60,9 +45,9 @@ export const Home = () => {
   const handleAddProject = () => {
     const newProject = {
       id: projects.length > 0 ? Math.max(...projects.map((p) => p.id)) + 1 : 1,
-      name: "",
-      description: "",
-      creationTime: "",
+      nazwa: "",
+      opis: "",
+      dataUtworzenia: "",
     };
     projects.push(newProject);
     history(`/edit/${newProject.id}`);
@@ -70,7 +55,7 @@ export const Home = () => {
 
   const displayedProjects = projects
     .filter((project) =>
-      project.name.toLowerCase().includes(activeSearchQuery.toLowerCase())
+      project.nazwa.toLowerCase().includes(activeSearchQuery.toLowerCase())
     )
     .slice(
       currentPage * itemsPerPage,
@@ -118,7 +103,6 @@ export const Home = () => {
   return (
     <div class="home-page">
       <TopBar />
-      <button onClick={fetchData2}>asd</button>
 
       {isLoggedIn ? (
         // isLoggedIn
@@ -146,10 +130,10 @@ export const Home = () => {
                 <tr>
                   <th>No.</th>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Creation Time</th>
-                  <th>Defense Date</th>
+                  <th>Nazwa</th>
+                  <th>Opis</th>
+                  <th>Data utowrzenia</th>
+                  <th>Data oddania</th>
                   <th class="action">Action</th>
                 </tr>
               </thead>
@@ -159,17 +143,17 @@ export const Home = () => {
                     <td>{currentPage * itemsPerPage + index + 1}</td>
                     <td>{project.id}</td>
                     <td>
-                      {project.name.length > 10
-                        ? project.name.substring(0, 10) + "..."
-                        : project.name}
+                      {project.nazwa.length > 10
+                        ? project.nazwa.substring(0, 10) + "..."
+                        : project.nazwa}
                     </td>
                     <td>
-                      {project.description.length > 10
-                        ? project.description.substring(0, 10) + "..."
-                        : project.description}
+                      {project.opis.length > 10
+                        ? project.opis.substring(0, 10) + "..."
+                        : project.opis}
                     </td>
-                    <td>{project.creationTime}</td>
-                    <td>{project.defenseDate}</td>
+                    <td>{project.dataUtworzenia}</td>
+                    <td>{project.dataOddania}</td>
                     <td class="action">
                       <Link class="table-button" to={`/show/${project.id}`}>
                         <button class="table-button">Show</button>
