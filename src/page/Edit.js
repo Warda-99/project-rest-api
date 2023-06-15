@@ -12,23 +12,23 @@ export const Edit = () => {
   const [creationTime, setCreationTime] = useState('');
   const [isCreating, setIsCreating] = useState(false);
 
-useEffect(() => {
-const foundProject = projects.find((proj) => proj.id === parseInt(id));
-if (!foundProject) {
-    foundProject = {
-      id: parseInt(id),
-      name: '',
-      description: '',
-      creationTime: '',
-    };
-    projects.push(foundProject);
-    setIsCreating(true);
-  }
-  setProject(foundProject);
-  setName(foundProject.name);
-  setDescription(foundProject.description);
-  setCreationTime(foundProject.creationTime);
-}, [id]);
+// useEffect(() => {
+// const foundProject = projects.find((proj) => proj.id === parseInt(id));
+// if (!foundProject) {
+//     foundProject = {
+//       id: parseInt(id),
+//       name: '',
+//       description: '',
+//       creationTime: '',
+//     };
+//     projects.push(foundProject);
+//     setIsCreating(true);
+//   }
+//   setProject(foundProject);
+//   setName(foundProject.name);
+//   setDescription(foundProject.description);
+//   setCreationTime(foundProject.creationTime);
+// }, [id]);
 
 const handleSave = () => {
 // logic to save changes goes here
@@ -39,14 +39,15 @@ const handleSave = () => {
 // })
 
 //Local Update
-const updatedProjects = projects.map(proj => 
-    proj.id === project.id ? { ...proj, name, description, creationTime } : proj
-);
-const updatedProject = updatedProjects.find(proj => proj.id === project.id);
-setProject(updatedProjects.find(proj => proj.id === project.id));
-setName(updatedProject.name);
-setDescription(updatedProject.description);
-setCreationTime(updatedProject.creationTime);
+// const updatedProjects = projects.map(proj => 
+//     proj.id === project.id ? { ...proj, name, description, creationTime } : proj
+// );
+
+// const updatedProject = updatedProjects.find(proj => proj.id === project.id);
+// setProject(updatedProjects.find(proj => proj.id === project.id));
+// setName(updatedProject.name);
+// setDescription(updatedProject.description);
+// setCreationTime(updatedProject.creationTime);
 };
 
 return (

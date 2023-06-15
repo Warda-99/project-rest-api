@@ -5,7 +5,7 @@ import TopBar from "./TopBar";
 import axios from "axios";
 import "../styles/Home.css";
 
-export const Home = () => {
+export const MyProjects = () => {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +20,7 @@ export const Home = () => {
   const fetchData = async () => {
 
 		axios({
-			url: 'https://project-rest-api-production.up.railway.app/coopProjects',
+			url: 'https://project-rest-api-production.up.railway.app/createdProjects',
 			method: 'get',
 			headers: {
 				Accept: 'application/json',

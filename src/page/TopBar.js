@@ -22,7 +22,7 @@ const TopBar = () => {
         {isLoggedIn ? (
         // isLoggedIn
         <>
-        <a href="/home">My Projects</a>
+        <a href="/myProjects">My Projects</a>
         <a href="/chat">Chat</a>
         <div className="dropdown">
         <div class="profile-icon">

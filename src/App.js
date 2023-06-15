@@ -10,15 +10,19 @@ import { Edit } from "./page/Edit";
 import { Account } from "./page/Account";
 import { Show } from "./page/Show";
 import { Chat } from "./page/Chat";
+import { MyProjects } from "./page/MyProjects";
+import { CreateProject } from "./page/CreatProject";
 
-
+//creatProject
 const Route = () => {
   let routes = useRoutes([
     { path: "/", element: <Auth /> },
     { path: "/logout", element: <LogOut /> },
     { path: "/home", element: <Home /> },
+    { path: "/myProjects", element: <MyProjects /> },
     { path: "/logout", element: <LogOut /> },
     { path: "/edit/:id", element: <Edit /> },
+    { path: "/creatProject", element: <CreateProject /> },
     { path: "/projectData", element: <projectData /> },
     { path: "/account", element: <Account /> },
     { path: "/show/:id", element: <Show /> },
