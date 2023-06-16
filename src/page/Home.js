@@ -5,7 +5,16 @@ import TopBar from "./TopBar";
 import axios from "axios";
 import "../styles/Home.css";
 
+
 export const Home = () => {
+  const navigate = useNavigate();
+  // Authorization session switch (true/false)
+  const [isLoggedIn] = useState(true);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/registrationrequired');
+    }
+  }, [isLoggedIn, navigate]);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
@@ -90,15 +99,11 @@ export const Home = () => {
     }
   };
 
-  // Authorization session switch (true/false)
-  const [isLoggedIn] = useState(true);
-
   return (
     <div class="home-page">
       <TopBar />
 
-      {isLoggedIn ? (
-        // isLoggedIn
+      {
         <>
           <div>
             <div class="SearchBlok">
@@ -188,14 +193,7 @@ export const Home = () => {
             </div>
           </div>
         </>
-      ) : (
-        // !isLoggedIn
-        <div class="message">
-          <h2>Registration Required</h2>
-          <p>You need to be registered to access this page.</p>
-          <a href="#">Sign Up</a>
-        </div>
-      )}
+      }
     </div>
   );
 };

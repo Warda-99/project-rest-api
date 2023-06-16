@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TopBar from "./TopBar";
 import "../styles/Chat.css";
 
 export const Chat = () => {
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+
+  const messagesEndRef = useRef(null);
 
   const handleInputChange = (event) => {
     setMessage(event.target.value);
@@ -15,6 +17,7 @@ export const Chat = () => {
       const newMessage = {
         user: "Agent007",
         text: message.trim(),
+        timestamp: new Date().toLocaleString()
       };
       setChatMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessage("");
@@ -28,6 +31,10 @@ export const Chat = () => {
     }
   };
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
+
   return (
     <>
       <TopBar />
@@ -35,11 +42,13 @@ export const Chat = () => {
         <h2>Chat, not GPT4</h2>
         <div className="chat-container">
           {chatMessages.map((msg, index) => (
-            <div key={index}>
+            <div key={index} className="chat-message">
               <strong>{msg.user}: </strong>
               {msg.text}
+              <span className="timestamp">{msg.timestamp}</span>
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <div className="chat-input">
           <input

@@ -12,6 +12,7 @@ import { Show } from "./page/Show";
 import { Chat } from "./page/Chat";
 import { MyProjects } from "./page/MyProjects";
 import { CreateProject } from "./page/CreatProject";
+import RegistrationRequired from './page/RegistrationRequired';
 
 //creatProject
 const Route = () => {
@@ -26,7 +27,8 @@ const Route = () => {
     { path: "/projectData", element: <projectData /> },
     { path: "/account", element: <Account /> },
     { path: "/show/:id", element: <Show /> },
-    { path: "/chat", element: <Chat /> },    
+    { path: "/chat", element: <Chat /> },
+    { path: "/registrationrequired", element: <RegistrationRequired /> },    
   ]);
   return routes;
 };
