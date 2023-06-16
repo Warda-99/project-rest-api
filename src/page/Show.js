@@ -31,7 +31,9 @@ export const Show = () => {
     fetchData();
   }, []);
 
-  //console.log(project)
+  const handleAddUser = () => {
+
+  }
 
   return (
     <>
@@ -60,11 +62,14 @@ export const Show = () => {
               </tr>
               <tr>
                 <td>Lista członków:</td>
-                <td></td>
+                <td>
+                  
+                </td>
               </tr>
             </tbody>
-          </table>
+          </table>   
         )}
+        <button onClick={handleAddUser} className='btn-add-users'>dodaj członków</button>
       </div>
     </>
   );

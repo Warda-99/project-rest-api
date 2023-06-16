@@ -1,11 +1,11 @@
 const projects = [
-    // {
-    //   id: 101,
-    //   nazwa: 'Project A',
-    //   opis: 'Project A description',
-    //   dataUtworzenia: '2023-04-10 14:30',
-    //   dataOddania: '2023-06-20',
-    // },
+    {
+      id: 101,
+      nazwa: 'Project A',
+      opis: 'Project A description',
+      dataUtworzenia: '2023-04-10 14:30',
+      dataOddania: '2023-06-20',
+    },
     // {
     //   id: 102,
     //   name: 'Project B',

@@ -10,7 +10,6 @@ export const Edit = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [creationTime, setCreationTime] = useState('');
-  const [isCreating, setIsCreating] = useState(false);
 
 // useEffect(() => {
 // const foundProject = projects.find((proj) => proj.id === parseInt(id));

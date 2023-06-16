@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react";
 import TopBar from "./TopBar";
 import "../styles/Edit.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const CreateProject = () => {
   const Token = localStorage.getItem("token");
   const [project, setProject] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const handleSave = () => {
-
-    //setProject = { name, description }
-    // console.log(project)
-
     axios({
       url: `https://project-rest-api-production.up.railway.app/addProject`,
       method: "post",
@@ -29,6 +27,7 @@ export const CreateProject = () => {
     })
       .then((res) => {
         console.log(res)
+        navigate(-1)
       })
       .catch((err) => console.log(err));
   };
@@ -39,9 +38,7 @@ export const CreateProject = () => {
         <TopBar />
       </div>
       <div className="edit-page">
-        <h2>
-          {project && project.name !== "" ? "Edit Project" : "Create Project"}
-        </h2>
+        <h2>Create Project</h2>
         <table>
           <tbody>
             <tr>
@@ -65,12 +62,6 @@ export const CreateProject = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Team:</td>
-              <td>
-                <textarea value={null} />
               </td>
             </tr>
           </tbody>
