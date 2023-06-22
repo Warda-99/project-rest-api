@@ -15,14 +15,14 @@ export const Account = () => {
     <>
       <TopBar />
       <div className="account-page">
-        <h2>My Account</h2>
+        <h2>Moje konto</h2>
         <form>
           <label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
+              placeholder="Nazwa użytkownika"
             />
           </label>
           <label>
@@ -30,7 +30,7 @@ export const Account = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              placeholder="E-mail"
             />
           </label>
           <label>
@@ -38,7 +38,7 @@ export const Account = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="New password"
+              placeholder="Nowe hasło"
             />
           </label>
           <label>
@@ -46,10 +46,10 @@ export const Account = () => {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Old password"
+              placeholder="Stare hasło"
             />
           </label>
-          <button onClick={handleUpdate}>Update Account</button>
+          <button onClick={handleUpdate}>Zaktualizuj konto</button>
         </form>
       </div>
     </>

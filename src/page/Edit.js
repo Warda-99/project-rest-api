@@ -61,24 +61,24 @@ return (
             <td>{project && project.id}</td>
         </tr>
         <tr>
-            <td>Name:</td>
+            <td>Imię:</td>
             <td><input type="text" value={name} onChange={e => setName(e.target.value)} /></td>
         </tr>
         <tr>
-            <td>Description:</td>
+            <td>Opis:</td>
             <td><textarea value={description} onChange={e => setDescription(e.target.value)} /></td>
         </tr>
         <tr>
-            <td>Team:</td>
+            <td>Zespół:</td>
             <td><textarea value={null} /></td>
         </tr>
         <tr>
-            <td>Date:</td>
+            <td>Data:</td>
             <td><input type="datetime-local" value={creationTime} onChange={e => setCreationTime(e.target.value)} /></td>
         </tr>
         </tbody>
     </table>
-    <button onClick={handleSave}>Save</button>
+    <button onClick={handleSave}>Zapisz</button>
     </div>
 </>
 );

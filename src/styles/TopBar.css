@@ -108,3 +108,17 @@
     text-shadow: 2px 2px 20px #fff;
   }
 }
+.small-screen {
+  display: none !important;
+}
+@media screen and (max-width: 768px) {
+  .large-screen {
+      display: none !important;
+  }
+  .small-screen {
+      display: block !important;
+  }
+  .top-bar .dropdown-content {
+    right: 0 !important;
+  }
+}

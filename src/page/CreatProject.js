@@ -38,7 +38,7 @@ export const CreateProject = () => {
         <TopBar />
       </div>
       <div className="edit-page">
-        <h2>Create Project</h2>
+        <h2>Utwórz projekt</h2>
         <table>
           <tbody>
             <tr>
@@ -46,7 +46,7 @@ export const CreateProject = () => {
               <td>{project && project.id}</td>
             </tr>
             <tr>
-              <td>Name:</td>
+              <td>Imię:</td>
               <td>
                 <input
                   type="text"
@@ -56,7 +56,7 @@ export const CreateProject = () => {
               </td>
             </tr>
             <tr>
-              <td>Description:</td>
+              <td>Opis:</td>
               <td>
                 <textarea
                   value={description}
@@ -66,7 +66,7 @@ export const CreateProject = () => {
             </tr>
           </tbody>
         </table>
-        <button onClick={handleSave}>Save</button>
+        <button onClick={handleSave}>Zapisz</button>
       </div>
     </>
   );

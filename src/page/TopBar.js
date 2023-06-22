@@ -18,25 +18,27 @@ const TopBar = () => {
   return (
     <div class="top-bar">
         <div><Background /></div>
-        <a href="/home">Home</a>
+        <a href="/home">Strona główna</a>
         {isLoggedIn ? (
         // isLoggedIn
         <>
-        <a href="/myProjects">My Projects</a>
-        <a href="/chat">Chat</a>
-        <div className="dropdown">
-        <div class="profile-icon">
-            <img src={process.env.PUBLIC_URL + '/pbs.png'} alt="Profile Image"/>
-        </div>
-            <div className="dropdown-content">
-                <a href="/account">My Account</a>
-                <a href="/logout">Logout</a>
-            </div>
+        <a href="/myProjects" class="large-screen">Moje projekty</a>
+        <a href="/chat" class="large-screen">Czat</a>
+        <div class="dropdown">
+          <div class="profile-icon">
+              <img src={process.env.PUBLIC_URL + '/pbs.png'} alt="Profile Image"/>
           </div>
+          <div class="dropdown-content">
+              <a href="/myProjects" class="small-screen">Moje projekty</a>
+              <a href="/chat" class="small-screen">Czat</a>
+              <a href="/account">Moje konto</a>
+              <a href="/logout">Wyloguj się</a>
+          </div>
+        </div>
         </>
       ) : (
         // !isLoggedIn
-        <a href="/">Login</a>
+        <a href="/">Zaloguj się</a>
       )}
     </div>
   );

@@ -110,36 +110,36 @@ export const MyProjects = () => {
               <input
                 type="text"
                 class="inputplaceholder"
-                placeholder="Search"
+                placeholder="Szukaj"
                 value={searchQuery}
                 onChange={handleSearchQueryChange}
                 onKeyDown={handleKeyDown}
               />
               <button class="go" onClick={handleSearch}>
-                Search
+                Szukaj
               </button>
             </div>
             <button class="AddProject" onClick={handleAddProject}>
-              Add Project
+              Dodaj projekt
             </button>
-            <h1>Project List</h1>
+            <h1>Lista projektów</h1>
             <table>
               <thead>
                 <tr>
-                  <th>No.</th>
-                  <th>ID</th>
+                <th>No.</th>
+                  <th class="hide-on-small">ID</th>
                   <th>Nazwa</th>
                   <th>Opis</th>
-                  <th>Data utowrzenia</th>
-                  <th>Data oddania</th>
-                  <th class="action">Action</th>
+                  <th class="hide-on-small">Data utworzenia</th>
+                  <th class="hide-on-small">Data wykonania</th>
+                  <th class="action">Akcja</th>
                 </tr>
               </thead>
               <tbody>
                 {displayedProjects.map((project, index) => (
                   <tr key={project.id}>
                     <td>{currentPage * itemsPerPage + index + 1}</td>
-                    <td>{project.id}</td>
+                    <td class="hide-on-small">{project.id}</td>
                     <td>
                       {project.nazwa.length > 10
                         ? project.nazwa.substring(0, 10) + "..."
@@ -150,20 +150,20 @@ export const MyProjects = () => {
                         ? project.opis.substring(0, 10) + "..."
                         : project.opis}
                     </td>
-                    <td>{project.dataUtworzenia}</td>
-                    <td>{project.dataOddania}</td>
+                    <td class="hide-on-small">{project.dataUtworzenia}</td>
+                    <td class="hide-on-small">{project.dataOddania}</td>
                     <td class="action">
                       <Link class="table-button" to={`/show/${project.id}`}>
-                        <button class="table-button">Show</button>
+                        <button class="table-button">Pokaż</button>
                       </Link>
                       <Link class="table-button" to={`/edit/${project.id}`}>
-                        <button class="table-button">Edit</button>
+                        <button class="table-button">Edytuj</button>
                       </Link>
                       <button
                         class="table-button delete"
                         onClick={() => handleDeleteProject(project.id)}
                       >
-                        Delete
+                        Usuń
                       </button>
                     </td>
                   </tr>
@@ -173,15 +173,15 @@ export const MyProjects = () => {
             <div class="pagesettings">
               <div class="navigation-buttons">
                 {currentPage !== 0 && (
-                  <button onClick={handlePreviousPage}>Previous Page</button>
+                  <button onClick={handlePreviousPage}>Poprzednia strona</button>
                 )}
                 {currentPage !==
                   Math.ceil(projects.length / itemsPerPage) - 1 && (
-                  <button onClick={handleNextPage}>Next Page</button>
+                  <button onClick={handleNextPage}>Następna strona</button>
                 )}
               </div>
               <div class="text-dropdown">
-                <span>Items per page: </span>
+                <span class="hide-on-small">Elementy na stronę: </span>
                 <select onChange={handleItemsPerPageChange}>
                   <option>5</option>
                   <option>10</option>
