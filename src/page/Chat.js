@@ -72,29 +72,24 @@ import io from 'socket.io-client';
 const Token = localStorage.getItem("token");
 
 export const Chat = () => {
-  useEffect(() => {
-    const Token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2RAbzIucGwiLCJpYXQiOjE2ODczNTc3MDEsImV4cCI6MTY4NzM5MzcwMX0.5m-BsXzXL4rFIdsks1lfg78eeOkSGRMOv44ds6XlFWM';
 
-    const socket = io.connect("https://project-rest-api-production.up.railway.app/chat", {
-      transports: ['websocket'],
-      extraHeaders: {
-        Authorization: `Bearer ${Token}`,
-      }
-    });
+  const headers = {
+    Authorization: `Bearer ${Token}`,
+  }
+ 
+  const ws = new WebSocket('ws://project-rest-api-production.up.railway.app/api/chat')
 
-    // Obsługa zdarzeń socket.io
-    socket.on('connect', () => {
-      console.log('Connected to server');
-    });
-
-    socket.on('message', (message) => {
-      console.log('Received message:', message);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  ws.onopen = () => {
+    console.log('Połączono z WebSocketem.');
+  };
+  
+  ws.onmessage = (message) => {
+    console.log('Otrzymano wiadomość:', message.data);
+  };
+  
+  ws.onclose = () => {
+    console.log('Połączenie WebSocket zostało zamknięte.');
+  };
 
   return (
     <div>
