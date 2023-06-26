@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TopBar from "./TopBar";
 import axios from "axios";
 import "../styles/Show.css";
+import Modal from "./Modal";
 
 export const Show = () => {
   const navigate = useNavigate();
@@ -11,9 +12,13 @@ export const Show = () => {
   const [project, setProject] = useState(null);
   const [users, setUsers] = useState({});
   const [coopUsers, setCoopUsers] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [userToAdd, setUserToAdd] = useState({});
   const [showAddUser, setShowAddUser] = useState(false);
   const [showAddTask, setShowAddTask] = useState(false);
+
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
 
   const fetchData = async () => {
     // project
@@ -28,7 +33,6 @@ export const Show = () => {
     })
       .then((res) => {
         setProject(res.data);
-        //console.log(res.data);
       })
       .catch((err) => console.log(err));
 
@@ -59,6 +63,21 @@ export const Show = () => {
     })
       .then((res) => {
         setCoopUsers(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    // tasks
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/getAllZadaniaProjektu/${id}`,
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    })
+      .then((res) => {
+        setTasks(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -98,7 +117,28 @@ export const Show = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleFinishTask = () => {
+  const handleAddTask = () => {
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/addZadanie/${id}`,
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+      data: {
+        nazwa: taskName,
+        opis: taskDescription,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setShowAddTask(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleFinishProject = () => {
     axios({
       url: `https://project-rest-api-production.up.railway.app/endProject/${id}`,
       method: "patch",
@@ -115,11 +155,28 @@ export const Show = () => {
       .catch((err) => console.log(err));
   };
 
+  const [openModals, setOpenModals] = useState({});
+
+  const handleOpenModal = (taskId) => {
+    setOpenModals((prevModals) => ({
+      ...prevModals,
+      [taskId]: true,
+    }));
+  };
+
+  const handleCloseModal = (taskId) => {
+    setOpenModals((prevModals) => ({
+      ...prevModals,
+      [taskId]: false,
+    }));
+  };
+
   return (
     <>
       <div>
         <TopBar />
       </div>
+
       <div className="show-page">
         <h2>
           {project && project.nazwa !== ""
@@ -132,33 +189,51 @@ export const Show = () => {
               <tbody>
                 <tr>
                   <td>ID:</td>
-                  <td>{project.id}</td>
+                  <td>{project?.id}</td>
                 </tr>
                 <tr>
                   <td>Nazwa:</td>
-                  <td>{project.nazwa}</td>
+                  <td>{project?.nazwa}</td>
                 </tr>
                 <tr>
                   <td>Opis:</td>
-                  <td>{project.opis}</td>
+                  <td>{project?.opis}</td>
                 </tr>
                 <tr>
                   <td>Data Utworzenia:</td>
-                  <td>{project.dataUtworzenia}</td>
+                  <td>{project?.dataUtworzenia}</td>
                 </tr>
                 <tr>
                   <td>Lista członków:</td>
                   <td>
                     {coopUsers.map((user) => (
                       <>
-                        <div>{user.email}</div>
+                        <div>{user?.email}</div>
                       </>
                     ))}
                   </td>
                 </tr>
                 <tr>
                   <td>Zadania:</td>
-                  <td>z1</td>
+                  <td>
+                    {tasks.map((task) => (
+                      <div key={task.id}>
+                        <button
+                          className="btn-task"
+                          onClick={() => handleOpenModal(task.id)}
+                        >
+                          {task?.nazwa} - {task?.status}
+                        </button>
+                        {/* {console.log(task)} */}
+                        <Modal
+                          open={openModals[task.id]}
+                          task={task}
+                          coopUsers = {coopUsers}
+                          onClose={() => handleCloseModal(task.id)}
+                        />
+                      </div>
+                    ))}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -176,7 +251,10 @@ export const Show = () => {
               >
                 dodaj zadanie
               </button>
-              <button className="btn-finish" onClick={() => handleFinishTask()}>
+              <button
+                className="btn-finish"
+                onClick={() => handleFinishProject()}
+              >
                 zakoncz
               </button>
             </div>
@@ -201,8 +279,23 @@ export const Show = () => {
             )}
 
             {showAddTask === true ? (
-              <div className="add-user-container">
-                <input type="text"/>
+              <div className="add-task-container">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="nazwa"
+                    value={taskName}
+                    onChange={(e) => setTaskName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="opis"
+                    value={taskDescription}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                  />
+                </div>
+                <button onClick={() => handleAddTask()}>dodaj</button>
               </div>
             ) : (
               <></>

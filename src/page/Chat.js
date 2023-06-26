@@ -1,99 +1,117 @@
-// import { useEffect, useRef, useState } from "react";
-// import TopBar from "./TopBar";
-// import "../styles/Chat.css";
-
-// export const Chat = () => {
-//   const [message, setMessage] = useState("");
-//   const [chatMessages, setChatMessages] = useState([]);
-
-//   const messagesEndRef = useRef(null);
-
-//   const handleInputChange = (event) => {
-//     setMessage(event.target.value);
-//   };
-
-//   const handleSendMessage = () => {
-//     if (message.trim() !== "") {
-//       const newMessage = {
-//         user: "Agent007",
-//         text: message.trim(),
-//         timestamp: new Date().toLocaleString()
-//       };
-//       setChatMessages((prevMessages) => [...prevMessages, newMessage]);
-//       setMessage("");
-//     }
-//   };
-
-//   const handleKeyDown = (event) => {
-//     if (event.key === "Enter") {
-//       event.preventDefault();
-//       handleSendMessage();
-//     }
-//   };
-
-//   useEffect(() => {
-//     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-//   }, [chatMessages]);
-
-//   return (
-//     <>
-//       <TopBar />
-//       <div className="chat-page">
-//         <h2>Chat, not GPT4</h2>
-//         <div className="chat-container">
-//           {chatMessages.map((msg, index) => (
-//             <div key={index} className="chat-message">
-//               <strong>{msg.user}: </strong>
-//               {msg.text}
-//               <span className="timestamp">{msg.timestamp}</span>
-//             </div>
-//           ))}
-//           <div ref={messagesEndRef} />
-//         </div>
-//         <div className="chat-input">
-//           <input
-//             type="text"
-//             placeholder="Type here..."
-//             value={message}
-//             onChange={handleInputChange}
-//             onKeyDown={handleKeyDown}
-//           />
-//           <button onClick={handleSendMessage}>
-//             <span>Send</span>
-//           </button>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-const Token = localStorage.getItem("token");
+import { useEffect, useRef, useState } from "react";
+import TopBar from "./TopBar";
+import axios from "axios";
+import "../styles/Chat.css";
 
 export const Chat = () => {
+  const Token = localStorage.getItem("token");
+  const [message, setMessage] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
+  const [user, setUser] = useState("");
 
-  const headers = {
-    Authorization: `Bearer ${Token}`,
+  const messagesEndRef = useRef(null);
+  const ws = useRef(null);
+
+  const getUserData = () => {
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/getUserData`,
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    })
+      .then((res) => {
+        const name = res.data.firstname;
+        const lastname = res.data.lastname;
+        setUser(name + ' ' + lastname);
+      })
+      .catch((err) => console.log(err));
   }
- 
-  const ws = new WebSocket('ws://project-rest-api-production.up.railway.app/api/chat')
 
-  ws.onopen = () => {
-    console.log('Połączono z WebSocketem.');
+  useEffect(() => {
+
+    getUserData()
+
+    ws.current = new WebSocket(
+      "ws://project-rest-api-production.up.railway.app/api/chat"
+    );
+
+    ws.current.onopen = () => {
+      console.log("Connected to WebSocket.");
+    };
+
+    ws.current.onmessage = (event) => {
+      const receivedMessage = JSON.parse(event.data);
+      console.log("Received message:", receivedMessage);
+
+      // Update chat messages state
+      setChatMessages((prevMessages) => [...prevMessages, receivedMessage]);
+    };
+
+    ws.current.onclose = () => {
+      console.log("WebSocket connection closed.");
+    };
+
+    return () => {
+      // Clean up WebSocket connection on component unmount
+      ws.current.close();
+    };
+  }, []);
+
+  const sendMessage = () => {
+    const newMessage = {
+      user: user,
+      text: message.trim(),
+      timestamp: new Date().toLocaleString(),
+    };
+
+    ws.current.send(JSON.stringify(newMessage));
+
+    // Clear the input field
+    setMessage("");
   };
-  
-  ws.onmessage = (message) => {
-    console.log('Otrzymano wiadomość:', message.data);
+
+  const handleInputChange = (event) => {
+    setMessage(event.target.value);
   };
-  
-  ws.onclose = () => {
-    console.log('Połączenie WebSocket zostało zamknięte.');
+
+  const handleInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
   };
 
   return (
-    <div>
-      {/* Komponenty interfejsu użytkownika */}
-    </div>
+    <>
+      <TopBar />
+
+      <div className="chat-page">
+
+        <h2>Chat, not GPT4</h2>
+        <div className="chat-container">
+          {chatMessages.map((msg, index) => (
+            <div key={index} className="chat-message">
+              <strong>{msg.user}: </strong>
+              {msg.text}
+              <span className="timestamp">{msg.timestamp}</span>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <div className="chat-input">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            value={message}
+            onChange={handleInputChange}
+            onKeyPress={handleInputKeyPress}
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
+      </div>
+    </>
   );
 };
