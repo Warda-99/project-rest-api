@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../styles/Modal.css";
 
 const Modal = ({ open, onClose, task, coopUsers }) => {
@@ -20,6 +21,42 @@ const Modal = ({ open, onClose, task, coopUsers }) => {
   const handleShowChangeStatus = () => {
     setShowChangeStatus(!showChangeStatus);
     showAddUser === true ? setShowAddUser(false) : <></>;
+  };
+
+  const handleAddUserToTask = () => {
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/editOsobaZadania/${task.id}`,
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+      data: {
+        id: userToAdd,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setShowAddUser(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleChangeStatus = () => {
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/editStatusZadania/${task.id}`,
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+      data: {
+        "status": statusToChange
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setShowAddUser(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -54,8 +91,8 @@ const Modal = ({ open, onClose, task, coopUsers }) => {
                 <td>{modalTask.status}</td>
               </tr>
               <tr>
-                <td>Odpowiedzialni</td>
-                <td>Jan</td>
+                <td>Odpowiedzialny</td>
+                <td>{task?.userDo.email}</td>
               </tr>
             </tbody>
           </table>
@@ -83,13 +120,13 @@ const Modal = ({ open, onClose, task, coopUsers }) => {
                   <input
                     type="radio"
                     className="radio-input"
-                    // onChange={() => setUserToAdd(user.id)}
+                    onChange={() => setUserToAdd(user.id)}
                   />
                   {user.email}
                 </label>
               ))}
 
-              <button onClick={() => {}}>zapisz</button>
+              <button onClick={() => handleAddUserToTask()}>zapisz</button>
             </div>
           ) : (
             <></>
@@ -126,7 +163,7 @@ const Modal = ({ open, onClose, task, coopUsers }) => {
                 GOTOWE
               </label>
 
-              <button onClick={() => {}}>zapisz</button>
+              <button onClick={() => handleChangeStatus()}>zapisz</button>
             </div>
           ) : (
             <></>

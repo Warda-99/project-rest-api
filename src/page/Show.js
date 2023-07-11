@@ -13,9 +13,12 @@ export const Show = () => {
   const [users, setUsers] = useState({});
   const [coopUsers, setCoopUsers] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [file, setFile] = useState([]);
+  const [fileList, setFileList] = useState([]);
   const [userToAdd, setUserToAdd] = useState({});
   const [showAddUser, setShowAddUser] = useState(false);
   const [showAddTask, setShowAddTask] = useState(false);
+  const [showAddFile, setShowAddFile] = useState(false);
 
   const [taskName, setTaskName] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -33,6 +36,22 @@ export const Show = () => {
     })
       .then((res) => {
         setProject(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    // file list
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/files/${id}`,
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+    })
+      .then((res) => {
+        setFileList(res.data);
+        console.log(res.data)
       })
       .catch((err) => console.log(err));
 
@@ -171,6 +190,31 @@ export const Show = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleFileUpload = () => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    axios({
+      url: `https://project-rest-api-production.up.railway.app/file/save/${id}`,
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div>
@@ -228,16 +272,23 @@ export const Show = () => {
                         <Modal
                           open={openModals[task.id]}
                           task={task}
-                          coopUsers = {coopUsers}
+                          coopUsers={coopUsers}
                           onClose={() => handleCloseModal(task.id)}
                         />
                       </div>
                     ))}
                   </td>
                 </tr>
+                <tr>
+                  <td>Pliki:</td>
+                  <td>
+                    
+                  </td>
+                </tr>
               </tbody>
             </table>
 
+            {/* Przyciski */}
             <div className="btn-container">
               <button
                 className="btn-add-users"
@@ -252,6 +303,12 @@ export const Show = () => {
                 dodaj zadanie
               </button>
               <button
+                className="btn-add-users"
+                onClick={() => setShowAddFile(!showAddFile)}
+              >
+                dodaj plik
+              </button>
+              <button
                 className="btn-finish"
                 onClick={() => handleFinishProject()}
               >
@@ -259,6 +316,7 @@ export const Show = () => {
               </button>
             </div>
 
+            {/* add user */}
             {showAddUser === true ? (
               <div className="add-user-container">
                 {users.map((user) => (
@@ -278,6 +336,7 @@ export const Show = () => {
               <></>
             )}
 
+            {/* add task */}
             {showAddTask === true ? (
               <div className="add-task-container">
                 <div>
@@ -296,6 +355,19 @@ export const Show = () => {
                   />
                 </div>
                 <button onClick={() => handleAddTask()}>dodaj</button>
+              </div>
+            ) : (
+              <></>
+            )}
+
+            {/* add file */}
+            {showAddFile === true ? (
+              <div className="add-user-container">
+                <div>
+                  <input type="file" onChange={handleFileChange} />
+                </div>
+
+                <button onClick={handleFileUpload}>Prześlij</button>
               </div>
             ) : (
               <></>

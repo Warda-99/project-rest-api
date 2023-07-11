@@ -16,9 +16,7 @@ export const Login = (props) => {
 		axios
 			.post('https://project-rest-api-production.up.railway.app/api/login', user)
 			.then((res) => {
-				//localStorage.setItem('token', res.data.accessToken)
 				var value = res.headers['set-cookie']
-				// console.log(value)
 				console.log(res.data)
 				localStorage.setItem('user', JSON.stringify(res.data))
         localStorage.setItem('token', res.data.token)

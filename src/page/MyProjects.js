@@ -26,7 +26,6 @@ export const MyProjects = () => {
   const [projectList, setProjectList] = useState(projects);
 
   const fetchData = async () => {
-
 		axios({
 			url: 'https://project-rest-api-production.up.railway.app/createdProjects',
 			method: 'get',

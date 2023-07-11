@@ -14,7 +14,6 @@ import { MyProjects } from "./page/MyProjects";
 import { CreateProject } from "./page/CreatProject";
 import RegistrationRequired from './page/RegistrationRequired';
 
-//creatProject
 const Route = () => {
   let routes = useRoutes([
     { path: "/", element: <Auth /> },
